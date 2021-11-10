@@ -1,0 +1,33 @@
+---
+title: "Final_Proj"
+author: "Lewis Luttrell"
+date: "11/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(haven)
+Final <- read_sav("Items46 Fall 2020.sav")
+View(Final)
+```
+
+```{r}
+library(car)
+library(tidyverse)
+```
+
+```{r}
+Rev_Code <- setNames(7:1,1:7)
+Final %>%
+  mutate(across(.cols = paste0("V", c(2, 7, 8, 9, 10, 18, 22, 23, 30, 32, 34, 38, 42)), 
+                .fns = ~recode(.,!!!Rev_Code)))
+```
+
+```{r}
+
+```
+
