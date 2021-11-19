@@ -11,23 +11,27 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(haven)
-Final <- read_sav("Items46 Fall 2020.sav")
-View(Final)
+library(car)
+library(tidyverse)
+library(psych)
 ```
 
 ```{r}
-library(car)
-library(tidyverse)
+Final <- read_sav("Items46 Fall 2020.sav")
+
 ```
+
+
 
 ```{r}
 Rev_Code <- setNames(7:1,1:7)
-Final %>%
-  mutate(across(.cols = paste0("V", c(2, 7, 8, 9, 10, 18, 22, 23, 30, 32, 34, 38, 42)), 
+Final_R <- Final %>%
+  mutate(dplyr::across(.cols = paste0("V", c(2, 7, 8, 9, 10, 18, 22, 23, 30, 32, 34, 38, 42)), 
                 .fns = ~recode(.,!!!Rev_Code)))
 ```
 
 ```{r}
-
+Final_fact <- factanal(Final, 5, rotation="varimax")
+print(fit, digits=2, cutoff=.3, sort=TRUE)
 ```
 
